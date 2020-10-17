@@ -30,12 +30,74 @@
 
 ;;; Code:
 
+
+(setq structurizr-dsl-mode/keywords '("->"
+                                      "animationStep"
+                                      "autolayout"
+                                      "background"
+                                      "border"
+                                      "branding"
+                                      "color"
+                                      "colour"
+                                      "component"
+                                      "configuration"
+                                      "container"
+                                      "containerInstance"
+                                      "dashed"
+                                      "deployment"
+                                      "deploymentEnvironment"
+                                      "deploymentNode"
+                                      "description"
+                                      "dynamic"
+                                      "element"
+                                      "enterprise"
+                                      "exclude"
+                                      "filtered"
+                                      "font"
+                                      "fontSize"
+                                      "height"
+                                      "icon"
+                                      "include"
+                                      "infrastructureNode"
+                                      "logo"
+                                      "metadata"
+                                      "model"
+                                      "opacity"
+                                      "person"
+                                      "perspectives"
+                                      "position"
+                                      "properties"
+                                      "relationship"
+                                      "routing"
+                                      "shape"
+                                      "softwareSystem"
+                                      "softwareSystemInstance"
+                                      "stroke"
+                                      "styles"
+                                      "systemContext"
+                                      "systemLandscape"
+                                      "themes"
+                                      "thickness"
+                                      "url"
+                                      "users"
+                                      "views"
+                                      "width"
+                                      "workspace"
+                                      "!include"))
+
 (setq structurizr-dsl-mode/highligths
-      '(("workspace" . font-lock-keyword-face)))
+      `((,(regexp-opt structurizr-dsl-mode/keywords) . font-lock-keyword-face)))
 
 (define-derived-mode structurizr-dsl-mode prog-mode "Structurizr-Dsl-Mode"
   "major mode for structurizr-dsl-mode"
-  (setq font-lock-defaults '(structurizr-dsl-mode/highligths)))
+  (setq font-lock-defaults '(structurizr-dsl-mode/highligths))
+
+  (modify-syntax-entry ?# "<" structurizr-dsl-mode-syntax-table)
+
+  (modify-syntax-entry ?\/ ". 14" structurizr-dsl-mode-syntax-table)
+  (modify-syntax-entry ?* ". 23" structurizr-dsl-mode-syntax-table)
+  (modify-syntax-entry ?\/ ". 12b" structurizr-dsl-mode-syntax-table)
+  (modify-syntax-entry ?\n "> b" structurizr-dsl-mode-syntax-table))
 
 (provide 'structurizr-dsl-mode)
 
