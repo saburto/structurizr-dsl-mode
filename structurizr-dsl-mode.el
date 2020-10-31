@@ -31,18 +31,28 @@
 ;;; Code:
 
 
-(setq structurizr-dsl-mode/keywords '("->"
+(setq structurizr-dsl-mode/types '("workspace"
+                                   "model"
+                                   "enterprise"
+                                   "person"
+                                   "softwareSystemInstance"
+                                   "softwareSystem"
+                                   "softwaresystem"
+                                   "containerInstance"
+                                   "container"
+                                   "component"))
+
+(setq structurizr-dsl-mode/keywords '(
+                                      "*"
                                       "animationStep"
                                       "autolayout"
+                                      "autoLayout"
                                       "background"
                                       "border"
                                       "branding"
                                       "color"
                                       "colour"
-                                      "component"
                                       "configuration"
-                                      "container"
-                                      "containerInstance"
                                       "dashed"
                                       "deployment"
                                       "deploymentEnvironment"
@@ -50,7 +60,6 @@
                                       "description"
                                       "dynamic"
                                       "element"
-                                      "enterprise"
                                       "exclude"
                                       "filtered"
                                       "font"
@@ -61,43 +70,53 @@
                                       "infrastructureNode"
                                       "logo"
                                       "metadata"
-                                      "model"
                                       "opacity"
-                                      "person"
                                       "perspectives"
                                       "position"
                                       "properties"
                                       "relationship"
                                       "routing"
                                       "shape"
-                                      "softwareSystem"
                                       "softwareSystemInstance"
                                       "stroke"
                                       "styles"
+                                      "systemcontext"
                                       "systemContext"
+                                      "systemlandscape"
                                       "systemLandscape"
                                       "themes"
                                       "thickness"
                                       "url"
                                       "users"
                                       "views"
-                                      "width"
-                                      "workspace"
-                                      "!include"))
+                                      "->"
+                                      "width"))
 
 (setq structurizr-dsl-mode/highligths
-      `((,(regexp-opt structurizr-dsl-mode/keywords) . font-lock-keyword-face)))
+        `(
+
+          ("shape \\(.*\\)"  1 font-lock-builtin-face)
+          ("//.*$" . font-lock-comment-face)
+          ("# .*$" . font-lock-comment-face)
+          ("\\([a-zA-Z]+\\) = " 1 font-lock-variable-name-face)
+          (,(regexp-opt structurizr-dsl-mode/types 'symbol) . font-lock-type-face)
+          (,(regexp-opt structurizr-dsl-mode/keywords 'word) . font-lock-keyword-face)
+          )
+      )
 
 (define-derived-mode structurizr-dsl-mode prog-mode "Structurizr-Dsl-Mode"
   "major mode for structurizr-dsl-mode"
   (setq font-lock-defaults '(structurizr-dsl-mode/highligths))
 
-  (modify-syntax-entry ?# "<" structurizr-dsl-mode-syntax-table)
-
   (modify-syntax-entry ?\/ ". 14" structurizr-dsl-mode-syntax-table)
   (modify-syntax-entry ?* ". 23" structurizr-dsl-mode-syntax-table)
-  (modify-syntax-entry ?\/ ". 12b" structurizr-dsl-mode-syntax-table)
-  (modify-syntax-entry ?\n "> b" structurizr-dsl-mode-syntax-table))
+
+  (setq-local comment-start "/*")
+  (setq-local comment-start-skip "/\\*+[ \t]*")
+  (setq-local comment-end "*/")
+  (setq-local comment-end-skip "[ \t]*\\*+/")
+
+  )
 
 (provide 'structurizr-dsl-mode)
 
