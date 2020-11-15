@@ -37,7 +37,6 @@
                                    "person"
                                    "softwareSystemInstance"
                                    "softwareSystem"
-                                   "softwaresystem"
                                    "containerInstance"
                                    "container"
                                    "component"))
@@ -45,7 +44,6 @@
 (setq structurizr-dsl-mode/keywords '(
                                       "*"
                                       "animationStep"
-                                      "autolayout"
                                       "autoLayout"
                                       "background"
                                       "border"
@@ -80,9 +78,7 @@
                                       "softwareSystemInstance"
                                       "stroke"
                                       "styles"
-                                      "systemcontext"
                                       "systemContext"
-                                      "systemlandscape"
                                       "systemLandscape"
                                       "themes"
                                       "thickness"
@@ -96,25 +92,27 @@
         `(
 
           ("shape \\(.*\\)"  1 font-lock-builtin-face)
-          ("//.*$" . font-lock-comment-face)
-          ("# .*$" . font-lock-comment-face)
-          ("\\([a-zA-Z]+\\) = " 1 font-lock-variable-name-face)
-          (,(regexp-opt structurizr-dsl-mode/types 'symbol) . font-lock-type-face)
-          (,(regexp-opt structurizr-dsl-mode/keywords 'word) . font-lock-keyword-face)
+          (,(regexp-opt structurizr-dsl-mode/types 'words) . font-lock-builtin-face)
+          (,(regexp-opt structurizr-dsl-mode/keywords 'words) . font-lock-keyword-face)
           )
       )
 
 (define-derived-mode structurizr-dsl-mode prog-mode "Structurizr-Dsl-Mode"
   "major mode for structurizr-dsl-mode"
-  (setq font-lock-defaults '(structurizr-dsl-mode/highligths))
+  (setq font-lock-defaults '(structurizr-dsl-mode/highligths nil t))
 
-  (modify-syntax-entry ?\/ ". 14" structurizr-dsl-mode-syntax-table)
+  (modify-syntax-entry ?\/ ". 124b" structurizr-dsl-mode-syntax-table)
   (modify-syntax-entry ?* ". 23" structurizr-dsl-mode-syntax-table)
+
+  (modify-syntax-entry ?# "< b" structurizr-dsl-mode-syntax-table)
+  (modify-syntax-entry ?\n "> b" structurizr-dsl-mode-syntax-table)
+
 
   (setq-local comment-start "/*")
   (setq-local comment-start-skip "/\\*+[ \t]*")
   (setq-local comment-end "*/")
   (setq-local comment-end-skip "[ \t]*\\*+/")
+
 
   )
 

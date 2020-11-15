@@ -29,6 +29,8 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
 
         }
 
+
+
         # relationships between people and software systems
         uses = customer -> internetBankingSystem "Views account balances, and makes payments using"
         internetBankingSystem -> mainframe "Gets account information from, and makes payments using"
@@ -228,6 +230,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
             }
             element "Failover" {
                 opacity 25
+                AUTOLAYOUT
             }
         }
     }
